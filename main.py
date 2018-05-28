@@ -5,8 +5,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
 from sklearn.feature_selection import VarianceThreshold
 import lightgbm as lgb
+import time
 
-path = r'C:\Users\trist\Documents\db_loc\home_loan/'
+path = r'D:\projects\kaggle\home loan/'
 
 
 params = {
@@ -89,27 +90,50 @@ def main():
     POS_CASH_df = pd.read_csv(path + '/POS_CASH_balance.csv')
     payments_df = pd.read_csv(path + '/installments_payments.csv')
 
+    start_time = time.time()
+
     df_concat = pd.concat([train_df, test_df])
     df_concat = to_catgorical_encodings(df_concat)
+    print('df_concat cat', df_concat.shape,time.time() - start_time)
+
 
     bureau_df = bureau_df.merge(bureau_balance_df, how = 'outer')
+
     bureau_df = to_catgorical_encodings(bureau_df)
+    print('bureau_df cat', bureau_df.shape,time.time() - start_time)
     prev_df = to_catgorical_encodings(prev_df)
+    print('prev_df cat', prev_df.shape, time.time() - start_time)
+
     credit_card_df = to_catgorical_encodings(credit_card_df)
+    print('credit_card_df cat', credit_card_df.shape, time.time() - start_time)
+
     POS_CASH_df = to_catgorical_encodings(POS_CASH_df)
+    print('POS_CASH_df cat', POS_CASH_df.shape, time.time() - start_time)
+
     payments_df = to_catgorical_encodings(payments_df)
+    print('bureau_df cat', bureau_df.shape, time.time() - start_time)
+
 
     bureau_df = get_general_features(bureau_df, 'SK_ID_BUREAU', 'bureau', ['SK_ID_CURR'])
+    print('bureau_df gen', bureau_df.shape, time.time() - start_time)
 
-    credit_card_df = credit_card_df.merge(payments_df, how = 'outer')
+
+    credit_card_df = credit_card_df.merge(payments_df, on = 'SK_ID_PREV')
     credit_card_df = get_general_features(credit_card_df, 'SK_ID_PREV', 'cc_installment', ['SK_ID_CURR'])
+    print('credit_card_df gen', bureau_df.shape, time.time() - start_time)
+
 
     POS_CASH_df = get_general_features(POS_CASH_df, 'SK_ID_PREV', 'pos_cash', ['SK_ID_CURR'])
+    print('POS_CASH_df gen', bureau_df.shape, time.time() - start_time)
+
 
     prev_df = prev_df.merge(credit_card_df, how = 'outer')
     prev_df = prev_df.merge(POS_CASH_df, how='outer')
 
+
     prev_df = get_general_features(prev_df, 'SK_ID_PREV', 'prev', ['SK_ID_CURR'])
+    print('prev_df gen', prev_df.shape, time.time() - start_time)
+
 
     df_concat = df_concat.merge(bureau_df, how = 'outer')
     df_concat = df_concat.merge(prev_df, how = 'outer')
@@ -136,9 +160,6 @@ def main():
                       verbose_eval=10, categorical_feature='auto')
 
     res_df['TARGET'] = model.predict(test_df)
-
-
-
 
 
 if __name__ == '__main__':
