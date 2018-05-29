@@ -1,9 +1,16 @@
 import pandas as pd
-import lightgbm as lgb
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
-
+from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
+from sklearn.feature_selection import VarianceThreshold
+import lightgbm as lgb
+import time
+import gc
 
 path = r'D:\projects\kaggle\home loan/'
+
+
 params = {
     'num_leaves': 31,
     'objective': 'binary',
@@ -18,7 +25,8 @@ params = {
 }
 MAX_ROUNDS = 5000
 
-def to_categorical_encodings(df):
+
+def to_catgorical_encodings(df):
     types = df.dtypes
 
     dummy_dfs = []
@@ -82,34 +90,67 @@ def get_general_features(df, join_feature, name, remove_columns):
     return res
 
 
-def fillna():
-    pass
-
-
 def main():
     train_df = pd.read_csv(path + '/application_train.csv')
     test_df = pd.read_csv(path + '/application_test.csv')
-    concat_df = pd.concat([train_df, test_df])
-
+    prev_df = pd.read_csv(path + '/previous_application.csv')
     bureau_df = pd.read_csv(path + '/bureau.csv')
+    print(len(bureau_df['SK_ID_BUREAU']))
     bureau_balance_df = pd.read_csv(path + '/bureau_balance.csv')
+    credit_card_df = pd.read_csv(path + '/credit_card_balance.csv')
+    POS_CASH_df = pd.read_csv(path + '/POS_CASH_balance.csv')
+    payments_df = pd.read_csv(path + '/installments_payments.csv')
+
+    start_time = time.time()
     bureau_df = bureau_df.merge(bureau_balance_df, how = 'outer')
+    print(len(set(bureau_df['SK_ID_BUREAU'])))
 
-    bureau_df = to_categorical_encodings(bureau_df)
+    bureau_df = to_catgorical_encodings(bureau_df)
+    df_concat = to_catgorical_encodings(pd.concat([train_df, test_df]))
+
+    prev_df = to_catgorical_encodings(prev_df)
+    credit_card_df = to_catgorical_encodings(credit_card_df)
+    POS_CASH_df = to_catgorical_encodings(POS_CASH_df)
+    payments_df = to_catgorical_encodings(payments_df)
+
+    gc.collect()
     bureau_df = get_general_features(bureau_df, 'SK_ID_BUREAU', 'bureau', ['SK_ID_CURR'])
-    bureau_df = bureau_df.groupby('SK_ID_CURR', as_index =False).mean()
-    concat_df = to_categorical_encodings(concat_df)
+    bureau_df = bureau_df.groupby('SK_ID_CURR', as_index=False).mean()
+    df_concat = df_concat.merge(bureau_df, how='left')
+    df_concat = df_concat.groupby('SK_ID_CURR', as_index=False).mean()
+    del bureau_df
+    gc.collect()
 
-    concat_df = concat_df.merge(bureau_df, how = 'left')
-    concat_df = concat_df.groupby('SK_ID_CURR', as_index =False).mean()
 
-    train_df = concat_df[concat_df['SK_ID_CURR'].isin(train_df['SK_ID_CURR'])]
-    test_df = concat_df[concat_df['SK_ID_CURR'].isin(test_df['SK_ID_CURR'])]
+    credit_card_df = get_general_features(credit_card_df, 'SK_ID_PREV', 'cc_installment', ['SK_ID_CURR'])
+    credit_card_df = credit_card_df.groupby('SK_ID_CURR', as_index=False).mean()
+
+    POS_CASH_df = get_general_features(POS_CASH_df, 'SK_ID_PREV', 'pos_cash', ['SK_ID_CURR'])
+    POS_CASH_df = POS_CASH_df.groupby('SK_ID_CURR', as_index=False).mean()
+
+    prev_df = get_general_features(prev_df, 'SK_ID_PREV', 'prev', ['SK_ID_CURR'])
+    prev_df = prev_df.groupby('SK_ID_CURR', as_index=False).mean()
+
+    payments_df = get_general_features(payments_df, 'SK_ID_PREV', 'payments', ['SK_ID_CURR'])
+    payments_df = payments_df.groupby('SK_ID_CURR', as_index=False).mean()
+
+    df_concat = df_concat.merge(credit_card_df, how = 'left')
+    df_concat = df_concat.merge(POS_CASH_df, how='left')
+    df_concat = df_concat.merge(prev_df, how = 'left')
+    df_concat = df_concat.merge(payments_df, how='left')
+    df_concat = df_concat.groupby('SK_ID_CURR', as_index=False).mean()
+
+
+    train_df = df_concat[df_concat['SK_ID_CURR'].isin(train_df['SK_ID_CURR'])]
+    test_df = df_concat[df_concat['SK_ID_CURR'].isin(test_df['SK_ID_CURR'])]
 
     train_df = train_df.fillna(0)
     test_df = test_df.fillna(0)
 
+    train_df.to_csv('train.csv', index = False)
+
     res_df = test_df[['SK_ID_CURR', 'TARGET']]
+
     y = train_df['TARGET']
 
     train_df = train_df.drop(['SK_ID_CURR', 'TARGET'], axis = 1)
@@ -120,6 +161,9 @@ def main():
     dval = lgb.Dataset(val_x, label=val_y, reference=dtrain)
     model = lgb.train(params, dtrain, num_boost_round=MAX_ROUNDS, valid_sets=[dtrain, dval],early_stopping_rounds=50,
                       verbose_eval=10, categorical_feature='auto')
+
+    res_df['TARGET'] = model.predict(test_df)
+    res_df.to_csv('output.csv', index = False)
 
     columns = train_df.columns
     f_i = model.feature_importance()

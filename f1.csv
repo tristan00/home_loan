@@ -1,108 +1,454 @@
 columns,f_i
-g_column,0
-CNT_CHILDREN_mean,60
-AMT_INCOME_TOTAL_mean,798
-AMT_CREDIT_mean,2231
-AMT_ANNUITY_mean,2153
-AMT_GOODS_PRICE_mean,1777
-REGION_POPULATION_RELATIVE_mean,780
-DAYS_BIRTH_mean,2431
-DAYS_EMPLOYED_mean,1692
-DAYS_REGISTRATION_mean,1115
-DAYS_ID_PUBLISH_mean,1266
-OWN_CAR_AGE_mean,691
-FLAG_MOBIL_mean,0
-FLAG_EMP_PHONE_mean,61
-FLAG_WORK_PHONE_mean,204
-FLAG_CONT_MOBILE_mean,0
-FLAG_PHONE_mean,144
-FLAG_EMAIL_mean,32
-CNT_FAM_MEMBERS_mean,221
-REGION_RATING_CLIENT_mean,44
-REGION_RATING_CLIENT_W_CITY_mean,238
-HOUR_APPR_PROCESS_START_mean,385
-REG_REGION_NOT_LIVE_REGION_mean,18
-REG_REGION_NOT_WORK_REGION_mean,14
-LIVE_REGION_NOT_WORK_REGION_mean,10
-REG_CITY_NOT_LIVE_CITY_mean,159
-REG_CITY_NOT_WORK_CITY_mean,44
-LIVE_CITY_NOT_WORK_CITY_mean,13
-EXT_SOURCE_1_mean,2602
-EXT_SOURCE_2_mean,2468
-EXT_SOURCE_3_mean,2539
-APARTMENTS_AVG_mean,139
-BASEMENTAREA_AVG_mean,181
-YEARS_BEGINEXPLUATATION_AVG_mean,173
-YEARS_BUILD_AVG_mean,154
-COMMONAREA_AVG_mean,138
-ELEVATORS_AVG_mean,81
-ENTRANCES_AVG_mean,137
-FLOORSMAX_AVG_mean,153
-FLOORSMIN_AVG_mean,80
-LANDAREA_AVG_mean,214
-LIVINGAPARTMENTS_AVG_mean,134
-LIVINGAREA_AVG_mean,195
-NONLIVINGAPARTMENTS_AVG_mean,119
-NONLIVINGAREA_AVG_mean,218
-APARTMENTS_MODE_mean,277
-BASEMENTAREA_MODE_mean,239
-YEARS_BEGINEXPLUATATION_MODE_mean,239
-YEARS_BUILD_MODE_mean,128
-COMMONAREA_MODE_mean,166
-ELEVATORS_MODE_mean,35
-ENTRANCES_MODE_mean,68
-FLOORSMAX_MODE_mean,44
-FLOORSMIN_MODE_mean,46
-LANDAREA_MODE_mean,223
-LIVINGAPARTMENTS_MODE_mean,125
-LIVINGAREA_MODE_mean,227
-NONLIVINGAPARTMENTS_MODE_mean,59
-NONLIVINGAREA_MODE_mean,144
-APARTMENTS_MEDI_mean,114
-BASEMENTAREA_MEDI_mean,148
-YEARS_BEGINEXPLUATATION_MEDI_mean,171
-YEARS_BUILD_MEDI_mean,83
-COMMONAREA_MEDI_mean,94
-ELEVATORS_MEDI_mean,45
-ENTRANCES_MEDI_mean,63
-FLOORSMAX_MEDI_mean,72
-FLOORSMIN_MEDI_mean,25
-LANDAREA_MEDI_mean,108
-LIVINGAPARTMENTS_MEDI_mean,63
-LIVINGAREA_MEDI_mean,171
-NONLIVINGAPARTMENTS_MEDI_mean,40
-NONLIVINGAREA_MEDI_mean,152
-TOTALAREA_MODE_mean,316
-OBS_30_CNT_SOCIAL_CIRCLE_mean,207
-DEF_30_CNT_SOCIAL_CIRCLE_mean,185
-OBS_60_CNT_SOCIAL_CIRCLE_mean,163
-DEF_60_CNT_SOCIAL_CIRCLE_mean,214
-DAYS_LAST_PHONE_CHANGE_mean,1251
-FLAG_DOCUMENT_2_mean,0
-FLAG_DOCUMENT_3_mean,369
-FLAG_DOCUMENT_4_mean,0
-FLAG_DOCUMENT_5_mean,28
-FLAG_DOCUMENT_6_mean,18
-FLAG_DOCUMENT_7_mean,0
-FLAG_DOCUMENT_8_mean,76
-FLAG_DOCUMENT_9_mean,4
-FLAG_DOCUMENT_10_mean,0
-FLAG_DOCUMENT_11_mean,32
-FLAG_DOCUMENT_12_mean,0
-FLAG_DOCUMENT_13_mean,96
-FLAG_DOCUMENT_14_mean,69
-FLAG_DOCUMENT_15_mean,31
-FLAG_DOCUMENT_16_mean,117
-FLAG_DOCUMENT_17_mean,0
-FLAG_DOCUMENT_18_mean,110
-FLAG_DOCUMENT_19_mean,0
-FLAG_DOCUMENT_20_mean,0
-FLAG_DOCUMENT_21_mean,0
-AMT_REQ_CREDIT_BUREAU_HOUR_mean,0
-AMT_REQ_CREDIT_BUREAU_DAY_mean,15
-AMT_REQ_CREDIT_BUREAU_WEEK_mean,47
-AMT_REQ_CREDIT_BUREAU_MON_mean,115
-AMT_REQ_CREDIT_BUREAU_QRT_mean,257
-AMT_REQ_CREDIT_BUREAU_YEAR_mean,505
-g_column_mean,0
-feature_app_count,0
+AMT_ANNUITY,1456
+AMT_CREDIT,1599
+AMT_GOODS_PRICE,1193
+AMT_INCOME_TOTAL,484
+AMT_REQ_CREDIT_BUREAU_DAY,8
+AMT_REQ_CREDIT_BUREAU_HOUR,0
+AMT_REQ_CREDIT_BUREAU_MON,97
+AMT_REQ_CREDIT_BUREAU_QRT,199
+AMT_REQ_CREDIT_BUREAU_WEEK,11
+AMT_REQ_CREDIT_BUREAU_YEAR,228
+APARTMENTS_AVG,88
+APARTMENTS_MEDI,76
+APARTMENTS_MODE,130
+BASEMENTAREA_AVG,97
+BASEMENTAREA_MEDI,62
+BASEMENTAREA_MODE,130
+CNT_CHILDREN,16
+CNT_FAM_MEMBERS,71
+COMMONAREA_AVG,53
+COMMONAREA_MEDI,44
+COMMONAREA_MODE,75
+DAYS_BIRTH,1828
+DAYS_EMPLOYED,1145
+DAYS_ID_PUBLISH,878
+DAYS_LAST_PHONE_CHANGE,750
+DAYS_REGISTRATION,736
+DEF_30_CNT_SOCIAL_CIRCLE,181
+DEF_60_CNT_SOCIAL_CIRCLE,148
+ELEVATORS_AVG,52
+ELEVATORS_MEDI,18
+ELEVATORS_MODE,23
+ENTRANCES_AVG,91
+ENTRANCES_MEDI,37
+ENTRANCES_MODE,57
+EXT_SOURCE_1,1969
+EXT_SOURCE_2,1978
+EXT_SOURCE_3,1862
+FLAG_CONT_MOBILE,0
+FLAG_DOCUMENT_10,0
+FLAG_DOCUMENT_11,32
+FLAG_DOCUMENT_12,0
+FLAG_DOCUMENT_13,64
+FLAG_DOCUMENT_14,61
+FLAG_DOCUMENT_15,9
+FLAG_DOCUMENT_16,131
+FLAG_DOCUMENT_17,0
+FLAG_DOCUMENT_18,90
+FLAG_DOCUMENT_19,0
+FLAG_DOCUMENT_2,0
+FLAG_DOCUMENT_20,0
+FLAG_DOCUMENT_21,0
+FLAG_DOCUMENT_3,208
+FLAG_DOCUMENT_4,0
+FLAG_DOCUMENT_5,8
+FLAG_DOCUMENT_6,6
+FLAG_DOCUMENT_7,0
+FLAG_DOCUMENT_8,10
+FLAG_DOCUMENT_9,2
+FLAG_EMAIL,7
+FLAG_EMP_PHONE,3
+FLAG_MOBIL,0
+FLAG_PHONE,48
+FLAG_WORK_PHONE,127
+FLOORSMAX_AVG,102
+FLOORSMAX_MEDI,45
+FLOORSMAX_MODE,34
+FLOORSMIN_AVG,52
+FLOORSMIN_MEDI,20
+FLOORSMIN_MODE,20
+HOUR_APPR_PROCESS_START,268
+LANDAREA_AVG,98
+LANDAREA_MEDI,56
+LANDAREA_MODE,110
+LIVE_CITY_NOT_WORK_CITY,7
+LIVE_REGION_NOT_WORK_REGION,8
+LIVINGAPARTMENTS_AVG,90
+LIVINGAPARTMENTS_MEDI,69
+LIVINGAPARTMENTS_MODE,102
+LIVINGAREA_AVG,85
+LIVINGAREA_MEDI,71
+LIVINGAREA_MODE,106
+NONLIVINGAPARTMENTS_AVG,69
+NONLIVINGAPARTMENTS_MEDI,17
+NONLIVINGAPARTMENTS_MODE,51
+NONLIVINGAREA_AVG,109
+NONLIVINGAREA_MEDI,94
+NONLIVINGAREA_MODE,115
+OBS_30_CNT_SOCIAL_CIRCLE,75
+OBS_60_CNT_SOCIAL_CIRCLE,94
+OWN_CAR_AGE,362
+REGION_POPULATION_RELATIVE,552
+REGION_RATING_CLIENT,27
+REGION_RATING_CLIENT_W_CITY,214
+REG_CITY_NOT_LIVE_CITY,112
+REG_CITY_NOT_WORK_CITY,20
+REG_REGION_NOT_LIVE_REGION,8
+REG_REGION_NOT_WORK_REGION,12
+TOTALAREA_MODE,196
+YEARS_BEGINEXPLUATATION_AVG,116
+YEARS_BEGINEXPLUATATION_MEDI,93
+YEARS_BEGINEXPLUATATION_MODE,133
+YEARS_BUILD_AVG,75
+YEARS_BUILD_MEDI,52
+YEARS_BUILD_MODE,62
+feature_CODE_GENDER_F,343
+feature_CODE_GENDER_M,167
+feature_CODE_GENDER_XNA,0
+feature_CODE_GENDER_nan,0
+feature_EMERGENCYSTATE_MODE_No,3
+feature_EMERGENCYSTATE_MODE_Yes,3
+feature_EMERGENCYSTATE_MODE_nan,0
+feature_FLAG_OWN_CAR_N,286
+feature_FLAG_OWN_CAR_Y,0
+feature_FLAG_OWN_CAR_nan,0
+feature_FLAG_OWN_REALTY_N,29
+feature_FLAG_OWN_REALTY_Y,0
+feature_FLAG_OWN_REALTY_nan,0
+feature_FONDKAPREMONT_MODE_not specified,15
+feature_FONDKAPREMONT_MODE_org spec account,12
+feature_FONDKAPREMONT_MODE_reg oper account,17
+feature_FONDKAPREMONT_MODE_reg oper spec account,0
+feature_FONDKAPREMONT_MODE_nan,5
+feature_HOUSETYPE_MODE_block of flats,3
+feature_HOUSETYPE_MODE_specific housing,1
+feature_HOUSETYPE_MODE_terraced house,0
+feature_HOUSETYPE_MODE_nan,1
+feature_NAME_CONTRACT_TYPE_Cash loans,291
+feature_NAME_CONTRACT_TYPE_Revolving loans,0
+feature_NAME_CONTRACT_TYPE_nan,0
+feature_NAME_EDUCATION_TYPE_Academic degree,21
+feature_NAME_EDUCATION_TYPE_Higher education,276
+feature_NAME_EDUCATION_TYPE_Incomplete higher,16
+feature_NAME_EDUCATION_TYPE_Lower secondary,16
+feature_NAME_EDUCATION_TYPE_Secondary / secondary special,160
+feature_NAME_EDUCATION_TYPE_nan,0
+feature_NAME_FAMILY_STATUS_Civil marriage,11
+feature_NAME_FAMILY_STATUS_Married,244
+feature_NAME_FAMILY_STATUS_Separated,10
+feature_NAME_FAMILY_STATUS_Single / not married,21
+feature_NAME_FAMILY_STATUS_Unknown,0
+feature_NAME_FAMILY_STATUS_Widow,32
+feature_NAME_FAMILY_STATUS_nan,0
+feature_NAME_HOUSING_TYPE_Co-op apartment,0
+feature_NAME_HOUSING_TYPE_House / apartment,22
+feature_NAME_HOUSING_TYPE_Municipal apartment,46
+feature_NAME_HOUSING_TYPE_Office apartment,45
+feature_NAME_HOUSING_TYPE_Rented apartment,3
+feature_NAME_HOUSING_TYPE_With parents,3
+feature_NAME_HOUSING_TYPE_nan,0
+feature_NAME_INCOME_TYPE_Businessman,0
+feature_NAME_INCOME_TYPE_Commercial associate,21
+feature_NAME_INCOME_TYPE_Maternity leave,0
+feature_NAME_INCOME_TYPE_Pensioner,18
+feature_NAME_INCOME_TYPE_State servant,63
+feature_NAME_INCOME_TYPE_Student,0
+feature_NAME_INCOME_TYPE_Unemployed,0
+feature_NAME_INCOME_TYPE_Working,152
+feature_NAME_INCOME_TYPE_nan,0
+feature_NAME_TYPE_SUITE_Children,14
+feature_NAME_TYPE_SUITE_Family,15
+feature_NAME_TYPE_SUITE_Group of people,0
+feature_NAME_TYPE_SUITE_Other_A,0
+feature_NAME_TYPE_SUITE_Other_B,1
+"feature_NAME_TYPE_SUITE_Spouse, partner",16
+feature_NAME_TYPE_SUITE_Unaccompanied,35
+feature_NAME_TYPE_SUITE_nan,11
+feature_OCCUPATION_TYPE_Accountants,42
+feature_OCCUPATION_TYPE_Cleaning staff,7
+feature_OCCUPATION_TYPE_Cooking staff,0
+feature_OCCUPATION_TYPE_Core staff,77
+feature_OCCUPATION_TYPE_Drivers,78
+feature_OCCUPATION_TYPE_HR staff,0
+feature_OCCUPATION_TYPE_High skill tech staff,34
+feature_OCCUPATION_TYPE_IT staff,0
+feature_OCCUPATION_TYPE_Laborers,56
+feature_OCCUPATION_TYPE_Low-skill Laborers,22
+feature_OCCUPATION_TYPE_Managers,14
+feature_OCCUPATION_TYPE_Medicine staff,43
+feature_OCCUPATION_TYPE_Private service staff,2
+feature_OCCUPATION_TYPE_Realty agents,1
+feature_OCCUPATION_TYPE_Sales staff,26
+feature_OCCUPATION_TYPE_Secretaries,0
+feature_OCCUPATION_TYPE_Security staff,3
+feature_OCCUPATION_TYPE_Waiters/barmen staff,2
+feature_OCCUPATION_TYPE_nan,39
+feature_ORGANIZATION_TYPE_Advertising,0
+feature_ORGANIZATION_TYPE_Agriculture,0
+feature_ORGANIZATION_TYPE_Bank,32
+feature_ORGANIZATION_TYPE_Business Entity Type 1,13
+feature_ORGANIZATION_TYPE_Business Entity Type 2,1
+feature_ORGANIZATION_TYPE_Business Entity Type 3,57
+feature_ORGANIZATION_TYPE_Cleaning,0
+feature_ORGANIZATION_TYPE_Construction,68
+feature_ORGANIZATION_TYPE_Culture,0
+feature_ORGANIZATION_TYPE_Electricity,0
+feature_ORGANIZATION_TYPE_Emergency,2
+feature_ORGANIZATION_TYPE_Government,7
+feature_ORGANIZATION_TYPE_Hotel,12
+feature_ORGANIZATION_TYPE_Housing,1
+feature_ORGANIZATION_TYPE_Industry: type 1,0
+feature_ORGANIZATION_TYPE_Industry: type 10,0
+feature_ORGANIZATION_TYPE_Industry: type 11,0
+feature_ORGANIZATION_TYPE_Industry: type 12,14
+feature_ORGANIZATION_TYPE_Industry: type 13,0
+feature_ORGANIZATION_TYPE_Industry: type 2,0
+feature_ORGANIZATION_TYPE_Industry: type 3,2
+feature_ORGANIZATION_TYPE_Industry: type 4,0
+feature_ORGANIZATION_TYPE_Industry: type 5,6
+feature_ORGANIZATION_TYPE_Industry: type 6,0
+feature_ORGANIZATION_TYPE_Industry: type 7,2
+feature_ORGANIZATION_TYPE_Industry: type 8,0
+feature_ORGANIZATION_TYPE_Industry: type 9,83
+feature_ORGANIZATION_TYPE_Insurance,0
+feature_ORGANIZATION_TYPE_Kindergarten,26
+feature_ORGANIZATION_TYPE_Legal Services,0
+feature_ORGANIZATION_TYPE_Medicine,13
+feature_ORGANIZATION_TYPE_Military,90
+feature_ORGANIZATION_TYPE_Mobile,0
+feature_ORGANIZATION_TYPE_Other,4
+feature_ORGANIZATION_TYPE_Police,42
+feature_ORGANIZATION_TYPE_Postal,1
+feature_ORGANIZATION_TYPE_Realtor,49
+feature_ORGANIZATION_TYPE_Religion,0
+feature_ORGANIZATION_TYPE_Restaurant,10
+feature_ORGANIZATION_TYPE_School,52
+feature_ORGANIZATION_TYPE_Security,2
+feature_ORGANIZATION_TYPE_Security Ministries,45
+feature_ORGANIZATION_TYPE_Self-employed,112
+feature_ORGANIZATION_TYPE_Services,9
+feature_ORGANIZATION_TYPE_Telecom,0
+feature_ORGANIZATION_TYPE_Trade: type 1,0
+feature_ORGANIZATION_TYPE_Trade: type 2,21
+feature_ORGANIZATION_TYPE_Trade: type 3,0
+feature_ORGANIZATION_TYPE_Trade: type 4,0
+feature_ORGANIZATION_TYPE_Trade: type 5,0
+feature_ORGANIZATION_TYPE_Trade: type 6,12
+feature_ORGANIZATION_TYPE_Trade: type 7,6
+feature_ORGANIZATION_TYPE_Transport: type 1,2
+feature_ORGANIZATION_TYPE_Transport: type 2,3
+feature_ORGANIZATION_TYPE_Transport: type 3,76
+feature_ORGANIZATION_TYPE_Transport: type 4,8
+feature_ORGANIZATION_TYPE_University,0
+feature_ORGANIZATION_TYPE_XNA,0
+feature_ORGANIZATION_TYPE_nan,0
+feature_WALLSMATERIAL_MODE_Block,12
+feature_WALLSMATERIAL_MODE_Mixed,0
+feature_WALLSMATERIAL_MODE_Monolithic,4
+feature_WALLSMATERIAL_MODE_Others,8
+feature_WALLSMATERIAL_MODE_Panel,49
+"feature_WALLSMATERIAL_MODE_Stone, brick",51
+feature_WALLSMATERIAL_MODE_Wooden,1
+feature_WALLSMATERIAL_MODE_nan,3
+feature_WEEKDAY_APPR_PROCESS_START_FRIDAY,19
+feature_WEEKDAY_APPR_PROCESS_START_MONDAY,42
+feature_WEEKDAY_APPR_PROCESS_START_SATURDAY,35
+feature_WEEKDAY_APPR_PROCESS_START_SUNDAY,20
+feature_WEEKDAY_APPR_PROCESS_START_THURSDAY,17
+feature_WEEKDAY_APPR_PROCESS_START_TUESDAY,25
+feature_WEEKDAY_APPR_PROCESS_START_WEDNESDAY,44
+feature_WEEKDAY_APPR_PROCESS_START_nan,0
+SK_ID_BUREAU,396
+DAYS_CREDIT_bureau_count,170
+CREDIT_DAY_OVERDUE_bureau_count,0
+DAYS_CREDIT_ENDDATE_bureau_count,0
+DAYS_ENDDATE_FACT_bureau_count,0
+AMT_CREDIT_MAX_OVERDUE_bureau_count,0
+CNT_CREDIT_PROLONG_bureau_count,0
+AMT_CREDIT_SUM_bureau_count,0
+AMT_CREDIT_SUM_DEBT_bureau_count,0
+AMT_CREDIT_SUM_LIMIT_bureau_count,0
+AMT_CREDIT_SUM_OVERDUE_bureau_count,0
+DAYS_CREDIT_UPDATE_bureau_count,0
+AMT_ANNUITY_bureau_count,0
+MONTHS_BALANCE_bureau_count,0
+feature_CREDIT_ACTIVE_Active_bureau_count,0
+feature_CREDIT_ACTIVE_Bad debt_bureau_count,0
+feature_CREDIT_ACTIVE_Closed_bureau_count,0
+feature_CREDIT_ACTIVE_Sold_bureau_count,0
+feature_CREDIT_ACTIVE_nan_bureau_count,0
+feature_CREDIT_CURRENCY_currency 1_bureau_count,0
+feature_CREDIT_CURRENCY_currency 2_bureau_count,0
+feature_CREDIT_CURRENCY_currency 3_bureau_count,0
+feature_CREDIT_CURRENCY_currency 4_bureau_count,0
+feature_CREDIT_CURRENCY_nan_bureau_count,0
+feature_CREDIT_TYPE_Another type of loan_bureau_count,0
+feature_CREDIT_TYPE_Car loan_bureau_count,0
+feature_CREDIT_TYPE_Cash loan (non-earmarked)_bureau_count,0
+feature_CREDIT_TYPE_Consumer credit_bureau_count,0
+feature_CREDIT_TYPE_Credit card_bureau_count,0
+feature_CREDIT_TYPE_Interbank credit_bureau_count,0
+feature_CREDIT_TYPE_Loan for business development_bureau_count,0
+feature_CREDIT_TYPE_Loan for purchase of shares (margin lending)_bureau_count,0
+feature_CREDIT_TYPE_Loan for the purchase of equipment_bureau_count,0
+feature_CREDIT_TYPE_Loan for working capital replenishment_bureau_count,0
+feature_CREDIT_TYPE_Microloan_bureau_count,0
+feature_CREDIT_TYPE_Mobile operator loan_bureau_count,0
+feature_CREDIT_TYPE_Mortgage_bureau_count,0
+feature_CREDIT_TYPE_Real estate loan_bureau_count,0
+feature_CREDIT_TYPE_Unknown type of loan_bureau_count,0
+feature_CREDIT_TYPE_nan_bureau_count,0
+feature_STATUS_0_bureau_count,0
+feature_STATUS_1_bureau_count,0
+feature_STATUS_2_bureau_count,0
+feature_STATUS_3_bureau_count,0
+feature_STATUS_4_bureau_count,0
+feature_STATUS_5_bureau_count,0
+feature_STATUS_C_bureau_count,0
+feature_STATUS_X_bureau_count,0
+feature_STATUS_nan_bureau_count,0
+DAYS_CREDIT_bureau_average,485
+CREDIT_DAY_OVERDUE_bureau_average,5
+DAYS_CREDIT_ENDDATE_bureau_average,473
+DAYS_ENDDATE_FACT_bureau_average,283
+AMT_CREDIT_MAX_OVERDUE_bureau_average,561
+CNT_CREDIT_PROLONG_bureau_average,49
+AMT_CREDIT_SUM_bureau_average,795
+AMT_CREDIT_SUM_DEBT_bureau_average,819
+AMT_CREDIT_SUM_LIMIT_bureau_average,573
+AMT_CREDIT_SUM_OVERDUE_bureau_average,127
+DAYS_CREDIT_UPDATE_bureau_average,440
+AMT_ANNUITY_bureau_average,151
+MONTHS_BALANCE_bureau_average,107
+feature_CREDIT_ACTIVE_Active_bureau_average,209
+feature_CREDIT_ACTIVE_Bad debt_bureau_average,0
+feature_CREDIT_ACTIVE_Closed_bureau_average,319
+feature_CREDIT_ACTIVE_Sold_bureau_average,97
+feature_CREDIT_ACTIVE_nan_bureau_average,0
+feature_CREDIT_CURRENCY_currency 1_bureau_average,3
+feature_CREDIT_CURRENCY_currency 2_bureau_average,4
+feature_CREDIT_CURRENCY_currency 3_bureau_average,0
+feature_CREDIT_CURRENCY_currency 4_bureau_average,0
+feature_CREDIT_CURRENCY_nan_bureau_average,0
+feature_CREDIT_TYPE_Another type of loan_bureau_average,29
+feature_CREDIT_TYPE_Car loan_bureau_average,160
+feature_CREDIT_TYPE_Cash loan (non-earmarked)_bureau_average,0
+feature_CREDIT_TYPE_Consumer credit_bureau_average,156
+feature_CREDIT_TYPE_Credit card_bureau_average,227
+feature_CREDIT_TYPE_Interbank credit_bureau_average,0
+feature_CREDIT_TYPE_Loan for business development_bureau_average,3
+feature_CREDIT_TYPE_Loan for purchase of shares (margin lending)_bureau_average,0
+feature_CREDIT_TYPE_Loan for the purchase of equipment_bureau_average,0
+feature_CREDIT_TYPE_Loan for working capital replenishment_bureau_average,5
+feature_CREDIT_TYPE_Microloan_bureau_average,262
+feature_CREDIT_TYPE_Mobile operator loan_bureau_average,0
+feature_CREDIT_TYPE_Mortgage_bureau_average,301
+feature_CREDIT_TYPE_Real estate loan_bureau_average,0
+feature_CREDIT_TYPE_Unknown type of loan_bureau_average,2
+feature_CREDIT_TYPE_nan_bureau_average,0
+feature_STATUS_0_bureau_average,193
+feature_STATUS_1_bureau_average,189
+feature_STATUS_2_bureau_average,5
+feature_STATUS_3_bureau_average,0
+feature_STATUS_4_bureau_average,0
+feature_STATUS_5_bureau_average,5
+feature_STATUS_C_bureau_average,161
+feature_STATUS_X_bureau_average,161
+feature_STATUS_nan_bureau_average,24
+DAYS_CREDIT_bureau_min,0
+CREDIT_DAY_OVERDUE_bureau_min,0
+DAYS_CREDIT_ENDDATE_bureau_min,0
+DAYS_ENDDATE_FACT_bureau_min,0
+AMT_CREDIT_MAX_OVERDUE_bureau_min,0
+CNT_CREDIT_PROLONG_bureau_min,0
+AMT_CREDIT_SUM_bureau_min,0
+AMT_CREDIT_SUM_DEBT_bureau_min,0
+AMT_CREDIT_SUM_LIMIT_bureau_min,0
+AMT_CREDIT_SUM_OVERDUE_bureau_min,0
+DAYS_CREDIT_UPDATE_bureau_min,0
+AMT_ANNUITY_bureau_min,1
+MONTHS_BALANCE_bureau_min,124
+feature_CREDIT_ACTIVE_Active_bureau_min,0
+feature_CREDIT_ACTIVE_Bad debt_bureau_min,0
+feature_CREDIT_ACTIVE_Closed_bureau_min,0
+feature_CREDIT_ACTIVE_Sold_bureau_min,0
+feature_CREDIT_ACTIVE_nan_bureau_min,0
+feature_CREDIT_CURRENCY_currency 1_bureau_min,0
+feature_CREDIT_CURRENCY_currency 2_bureau_min,0
+feature_CREDIT_CURRENCY_currency 3_bureau_min,0
+feature_CREDIT_CURRENCY_currency 4_bureau_min,0
+feature_CREDIT_CURRENCY_nan_bureau_min,0
+feature_CREDIT_TYPE_Another type of loan_bureau_min,0
+feature_CREDIT_TYPE_Car loan_bureau_min,0
+feature_CREDIT_TYPE_Cash loan (non-earmarked)_bureau_min,0
+feature_CREDIT_TYPE_Consumer credit_bureau_min,0
+feature_CREDIT_TYPE_Credit card_bureau_min,0
+feature_CREDIT_TYPE_Interbank credit_bureau_min,0
+feature_CREDIT_TYPE_Loan for business development_bureau_min,0
+feature_CREDIT_TYPE_Loan for purchase of shares (margin lending)_bureau_min,0
+feature_CREDIT_TYPE_Loan for the purchase of equipment_bureau_min,0
+feature_CREDIT_TYPE_Loan for working capital replenishment_bureau_min,0
+feature_CREDIT_TYPE_Microloan_bureau_min,0
+feature_CREDIT_TYPE_Mobile operator loan_bureau_min,0
+feature_CREDIT_TYPE_Mortgage_bureau_min,0
+feature_CREDIT_TYPE_Real estate loan_bureau_min,0
+feature_CREDIT_TYPE_Unknown type of loan_bureau_min,0
+feature_CREDIT_TYPE_nan_bureau_min,0
+feature_STATUS_0_bureau_min,109
+feature_STATUS_1_bureau_min,0
+feature_STATUS_2_bureau_min,0
+feature_STATUS_3_bureau_min,0
+feature_STATUS_4_bureau_min,0
+feature_STATUS_5_bureau_min,0
+feature_STATUS_C_bureau_min,68
+feature_STATUS_X_bureau_min,63
+feature_STATUS_nan_bureau_min,0
+DAYS_CREDIT_bureau_max,0
+CREDIT_DAY_OVERDUE_bureau_max,0
+DAYS_CREDIT_ENDDATE_bureau_max,0
+DAYS_ENDDATE_FACT_bureau_max,0
+AMT_CREDIT_MAX_OVERDUE_bureau_max,0
+CNT_CREDIT_PROLONG_bureau_max,0
+AMT_CREDIT_SUM_bureau_max,0
+AMT_CREDIT_SUM_DEBT_bureau_max,0
+AMT_CREDIT_SUM_LIMIT_bureau_max,0
+AMT_CREDIT_SUM_OVERDUE_bureau_max,0
+DAYS_CREDIT_UPDATE_bureau_max,0
+AMT_ANNUITY_bureau_max,0
+MONTHS_BALANCE_bureau_max,103
+feature_CREDIT_ACTIVE_Active_bureau_max,0
+feature_CREDIT_ACTIVE_Bad debt_bureau_max,0
+feature_CREDIT_ACTIVE_Closed_bureau_max,0
+feature_CREDIT_ACTIVE_Sold_bureau_max,0
+feature_CREDIT_ACTIVE_nan_bureau_max,0
+feature_CREDIT_CURRENCY_currency 1_bureau_max,0
+feature_CREDIT_CURRENCY_currency 2_bureau_max,0
+feature_CREDIT_CURRENCY_currency 3_bureau_max,0
+feature_CREDIT_CURRENCY_currency 4_bureau_max,0
+feature_CREDIT_CURRENCY_nan_bureau_max,0
+feature_CREDIT_TYPE_Another type of loan_bureau_max,0
+feature_CREDIT_TYPE_Car loan_bureau_max,0
+feature_CREDIT_TYPE_Cash loan (non-earmarked)_bureau_max,0
+feature_CREDIT_TYPE_Consumer credit_bureau_max,0
+feature_CREDIT_TYPE_Credit card_bureau_max,0
+feature_CREDIT_TYPE_Interbank credit_bureau_max,0
+feature_CREDIT_TYPE_Loan for business development_bureau_max,0
+feature_CREDIT_TYPE_Loan for purchase of shares (margin lending)_bureau_max,0
+feature_CREDIT_TYPE_Loan for the purchase of equipment_bureau_max,0
+feature_CREDIT_TYPE_Loan for working capital replenishment_bureau_max,0
+feature_CREDIT_TYPE_Microloan_bureau_max,0
+feature_CREDIT_TYPE_Mobile operator loan_bureau_max,0
+feature_CREDIT_TYPE_Mortgage_bureau_max,0
+feature_CREDIT_TYPE_Real estate loan_bureau_max,0
+feature_CREDIT_TYPE_Unknown type of loan_bureau_max,0
+feature_CREDIT_TYPE_nan_bureau_max,0
+feature_STATUS_0_bureau_max,61
+feature_STATUS_1_bureau_max,153
+feature_STATUS_2_bureau_max,13
+feature_STATUS_3_bureau_max,10
+feature_STATUS_4_bureau_max,4
+feature_STATUS_5_bureau_max,20
+feature_STATUS_C_bureau_max,84
+feature_STATUS_X_bureau_max,94
+feature_STATUS_nan_bureau_max,0

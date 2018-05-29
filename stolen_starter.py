@@ -161,7 +161,7 @@ params = {'boosting_type': 'gbdt',
 #Train model on selected parameters and number of iterations
 lgbm = lgb.train(params,
                  train_data,
-                 2500,
+                 10000,
                  valid_sets=valid_data,
                  early_stopping_rounds= 40,
                  verbose_eval= 10
