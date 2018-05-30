@@ -429,14 +429,19 @@ def main():
 
 
 def main_old():
-    df_train = pd.read_csv(path + r'/application_train.csv')
-    df_test = pd.read_csv(path + r'/application_test.csv')
-    df_bureau = pd.read_csv(path + r'/bureau.csv')
-    df_bureau2 = pd.read_csv(path + r'/bureau_balance.csv')
+    # df_train = pd.read_csv(path + r'/application_train.csv')
+    # df_test = pd.read_csv(path + r'/application_test.csv')
+    # df_bureau = pd.read_csv(path + r'/bureau.csv')
+    # df_bureau2 = pd.read_csv(path + r'/bureau_balance.csv')
     df_prev = pd.read_csv(path + r'/previous_application.csv')
     df_cc =  pd.read_csv(path + r'/credit_card_balance.csv')
     df_installment = pd.read_csv(path + r'/installments_payments.csv')
     df_pos_cash = pd.read_csv(path + r'/POS_CASH_balance.csv')
+
+    all_prev = df_prev.merge(df_cc, how = 'inner', on = 'SK_ID_PREV')
+    all_prev = all_prev.merge(df_installment, how='inner',  on = 'SK_ID_PREV')
+    all_prev = all_prev.merge(df_pos_cash, how='inner',  on = 'SK_ID_PREV')
+
     df_bureau.merge(df_bureau2, how = 'left')
 
     print('df_pos_cash')
@@ -576,7 +581,7 @@ def main_old():
 # df_train.to_csv('sample.csv', index=False)
 # print(sum(df_train['TARGET'])/len(df_train['TARGET']))
 
-main()
+main_old()
 
 # NAME_CONTRACT_TYPE_le
 # CODE_GENDER_le
