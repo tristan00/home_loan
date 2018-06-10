@@ -1,7 +1,7 @@
 import pandas as pd
 import lightgbm
 from sklearn.model_selection import train_test_split
-
+from sklearn.preprocessing import LabelEncoder
 
 path = r'C:\Users\trist\Documents\db_loc\home_loan\files'
 
@@ -23,30 +23,28 @@ df_app_train = pd.read_csv(path + '/application_train.csv')
 # df_app_test = pd.read_csv(path + '/application_test.csv')
 # df_concat = pd.concat([df_app_test, df_app_train])
 
-
-x = df_app_train.drop(['TARGET', 'SK_ID_CURR', axis = 1)
-y = df_app_train['TARGET'].values
-
-
 def to_catgorical_encodings(df):
     types = df.dtypes
     for i, j in zip(types, df.columns):
         if j == 'SK_ID_CURR' or j == 'TARGET' or j == 'SK_ID_PREV':
             continue
         if i == 'object':
-            df[j] = df[[j]].fillna('')
-            for k in set(df[j]):
-                df["feature_{0}_{1}".format(j, k)] = df.apply(lambda x: 1 if x[j] == k else 0, axis=1)
-            df = df.drop(j, axis = 1)
+            print(j)
+            df[j] = df[j].apply(lambda x: str(x))
+            le = LabelEncoder()
+            df[j] = le.fit_transform(df[j])
         else:
             df[j] = df[[j]].fillna(0)
     return df
+
+x = df_app_train.drop(['TARGET', 'SK_ID_CURR'], axis = 1)
+y = df_app_train['TARGET'].values
 
 x = to_catgorical_encodings(x)
 x_train, x_val, y_train, y_val = train_test_split(x, y, train_size=.9)
 
 dtrain = lightgbm.Dataset(x_train, label=y_train)
-dval = lightgbm.Dataset(y_train, label=y_val, reference=dtrain)
+dval = lightgbm.Dataset(x_val, label=y_val, reference=dtrain)
 model = lightgbm.train(params, dtrain, num_boost_round=MAX_ROUNDS, valid_sets=[dtrain, dval],
                        early_stopping_rounds=100,
                        verbose_eval=10)
