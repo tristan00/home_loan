@@ -24,7 +24,7 @@ df_app_train = pd.read_csv(path + '/application_train.csv')
 # df_concat = pd.concat([df_app_test, df_app_train])
 
 
-x = df_app_train.drop('TARGET', axis = 1)
+x = df_app_train.drop(['TARGET', 'SK_ID_CURR', axis = 1)
 y = df_app_train['TARGET'].values
 
 
