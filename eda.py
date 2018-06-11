@@ -2,6 +2,7 @@ import pandas as pd
 import lightgbm
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+import numpy as np
 
 path = r'C:\Users\trist\Documents\db_loc\home_loan\files'
 
@@ -20,8 +21,21 @@ params = {
 MAX_ROUNDS = 10000
 
 df_app_train = pd.read_csv(path + '/application_train.csv')
-# df_app_test = pd.read_csv(path + '/application_test.csv')
-# df_concat = pd.concat([df_app_test, df_app_train])
+df_app_test = pd.read_csv(path + '/application_test.csv')
+df_concat = pd.concat([df_app_test, df_app_train])
+
+def fill_na_encodings(df):
+    df = df.replace('XNA/XAP', np.nan)
+    df = df.replace('XNA', np.nan)
+    # df = df.replace('XAP', np.nan)
+    df = df.replace(365243.00, np.nan)
+
+    for i, j in zip(df.dtypes, df.columns):
+        if i == 'object':
+            df[j] = df[j].fillna(df[j].mode())
+        else:
+            df[j] = df[j].fillna(df[j].median())
+    return df
 
 def to_catgorical_encodings(df):
     types = df.dtypes
@@ -37,11 +51,30 @@ def to_catgorical_encodings(df):
             df[j] = df[[j]].fillna(0)
     return df
 
+
+df_app_train = fill_na_encodings(df_app_train)
+
+df_app_train['a1'] = df_app_train.apply(lambda x: x['AMT_INCOME_TOTAL']/max(1, x['AMT_ANNUITY']), axis = 1)
+df_app_train['a2'] = df_app_train.apply(lambda x: x['AMT_GOODS_PRICE']/max(1, x['AMT_INCOME_TOTAL']), axis = 1)
+df_app_train['a3'] = df_app_train.apply(lambda x: x['AMT_CREDIT']/max(1, x['AMT_INCOME_TOTAL']), axis = 1)
+df_app_train['a4'] = df_app_train.apply(lambda x: x['AMT_GOODS_PRICE']/max(1, x['AMT_CREDIT']), axis = 1)
+df_app_train['a5'] = df_app_train.apply(lambda x: x['AMT_CREDIT']/max(1, x['AMT_ANNUITY']), axis = 1)
+df_app_train['a6'] = df_app_train.apply(lambda x: x['CNT_CHILDREN']/max(1, x['CNT_FAM_MEMBERS']), axis = 1)
+df_app_train['a7'] = df_app_train['DAYS_BIRTH'] - df_app_train['DAYS_EMPLOYED']
+df_app_train['a8'] = df_app_train['DAYS_BIRTH'] - df_app_train['DAYS_REGISTRATION']
+df_app_train['a9'] = df_app_train['DAYS_BIRTH'] - df_app_train['DAYS_ID_PUBLISH']
+df_app_train['a10'] = df_app_train['DAYS_BIRTH'] - df_app_train['DAYS_LAST_PHONE_CHANGE']
+df_app_train['a11'] = df_app_train.apply(lambda x: x['DEF_60_CNT_SOCIAL_CIRCLE']/max(1, x['OBS_60_CNT_SOCIAL_CIRCLE']), axis = 1)
+df_app_train['a12'] = df_app_train.apply(lambda x: x['DEF_30_CNT_SOCIAL_CIRCLE']/max(1, x['OBS_30_CNT_SOCIAL_CIRCLE']), axis = 1)
+
+
+
+
 x = df_app_train.drop(['TARGET', 'SK_ID_CURR'], axis = 1)
 y = df_app_train['TARGET'].values
 
 x = to_catgorical_encodings(x)
-x_train, x_val, y_train, y_val = train_test_split(x, y, train_size=.9)
+x_train, x_val, y_train, y_val = train_test_split(x, y, train_size=.9, shuffle=False)
 
 dtrain = lightgbm.Dataset(x_train, label=y_train)
 dval = lightgbm.Dataset(x_val, label=y_val, reference=dtrain)
@@ -60,28 +93,28 @@ df.to_csv('f1.csv', index=False)
 
 
 
-#
-#
-# groups = []
-# for i in df_app_train.columns.tolist():
-#     print(i)
-#     print(i == 'SK_ID_CURR')
-#     if i == 'TARGET' or i == 'SK_ID_CURR':
-#         print('here')
-#     else:
-#         groups.append({i: df_app_train[[i, 'TARGET']].groupby([i]).agg(['mean', 'count'])})
-#
-# df_g = df_concat.groupby('')
-# df_bureau = pd.read_csv(path + '/bureau.csv')
-# df_concat = df_concat.merge(df_bureau, how = 'left', on= 'SK_ID_CURR')
-# df_concat = df_concat.dropna(subset = ['SK_ID_BUREAU'])
-# df_concat = df_concat[:100]
-# df_bureau_balance = pd.read_csv(path + '/bureau_balance.csv')
-# # df_cc = pd.read_csv(path + '/credit_card_balance.csv')
-# # df_installment = pd.read_csv(path + '/installments_payments.csv')
-# # df_pos_cash = pd.read_csv(path + '/POS_CASH_balance.csv')
-# # df_prev = pd.read_csv(path + '/previous_application.csv')
-#
-#
-# df_burau_joined = df_bureau.merge(df_bureau_balance, on = 'SK_ID_BUREAU')
-# print(1)
+
+
+groups = []
+for i in df_app_train.columns.tolist():
+    print(i)
+    print(i == 'SK_ID_CURR')
+    if i == 'TARGET' or i == 'SK_ID_CURR':
+        print('here')
+    else:
+        groups.append({i: df_app_train[[i, 'TARGET']].groupby([i]).agg(['mean', 'count'])})
+
+df_g = df_concat.groupby('')
+df_bureau = pd.read_csv(path + '/bureau.csv')
+df_concat = df_concat.merge(df_bureau, how = 'left', on= 'SK_ID_CURR')
+df_concat = df_concat.dropna(subset = ['SK_ID_BUREAU'])
+df_concat = df_concat[:100]
+df_bureau_balance = pd.read_csv(path + '/bureau_balance.csv')
+# df_cc = pd.read_csv(path + '/credit_card_balance.csv')
+# df_installment = pd.read_csv(path + '/installments_payments.csv')
+# df_pos_cash = pd.read_csv(path + '/POS_CASH_balance.csv')
+# df_prev = pd.read_csv(path + '/previous_application.csv')
+
+
+df_burau_joined = df_bureau.merge(df_bureau_balance, on = 'SK_ID_BUREAU')
+print(1)
