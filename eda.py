@@ -58,7 +58,7 @@ df_app_train = fill_na_encodings(df_app_train)
 
 df_app_train = df_app_train.compute()
 
-df_app_train['a1'] = df_app_train.apply(lambda x: x['AMT_INCOME_TOTAL']/max(1, x['AMT_ANNUITY']), axis = 1)
+df_app_train['a1'] =  df_app_train['AMT_INCOME_TOTAL']/df_app_train['AMT_ANNUITY']
 df_app_train['a2'] = df_app_train.apply(lambda x: x['AMT_GOODS_PRICE']/max(1, x['AMT_INCOME_TOTAL']), axis = 1)
 df_app_train['a3'] = df_app_train.apply(lambda x: x['AMT_CREDIT']/max(1, x['AMT_INCOME_TOTAL']), axis = 1)
 df_app_train['a4'] = df_app_train.apply(lambda x: x['AMT_GOODS_PRICE']/max(1, x['AMT_CREDIT']), axis = 1)
@@ -70,9 +70,6 @@ df_app_train['a9'] = df_app_train['DAYS_BIRTH'] - df_app_train['DAYS_ID_PUBLISH'
 df_app_train['a10'] = df_app_train['DAYS_BIRTH'] - df_app_train['DAYS_LAST_PHONE_CHANGE']
 df_app_train['a11'] = df_app_train.apply(lambda x: x['DEF_60_CNT_SOCIAL_CIRCLE']/max(1, x['OBS_60_CNT_SOCIAL_CIRCLE']), axis = 1)
 df_app_train['a12'] = df_app_train.apply(lambda x: x['DEF_30_CNT_SOCIAL_CIRCLE']/max(1, x['OBS_30_CNT_SOCIAL_CIRCLE']), axis = 1)
-
-
-
 
 x = df_app_train.drop(['TARGET', 'SK_ID_CURR'], axis = 1)
 y = df_app_train['TARGET'].values
