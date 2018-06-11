@@ -3,6 +3,7 @@ import lightgbm
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
+import dask.dataframe as dd
 
 path = r'C:\Users\trist\Documents\db_loc\home_loan\files'
 
@@ -20,21 +21,21 @@ params = {
 }
 MAX_ROUNDS = 10000
 
-df_app_train = pd.read_csv(path + '/application_train.csv')
-df_app_test = pd.read_csv(path + '/application_test.csv')
-df_concat = pd.concat([df_app_test, df_app_train])
+df_app_train = dd.read_csv(path + '/application_train.csv')
+df_app_test = dd.read_csv(path + '/application_test.csv')
+df_concat = dd.concat([df_app_test, df_app_train])
 
 def fill_na_encodings(df):
-    df = df.replace('XNA/XAP', np.nan)
-    df = df.replace('XNA', np.nan)
+    df = df.mask(df == 'XNA/XAP', '')
+    df = df.mask(df == 'XNA', '')
     # df = df.replace('XAP', np.nan)
-    df = df.replace(365243.00, np.nan)
+    df = df.mask(df == 365243.00, np.nan)
 
     for i, j in zip(df.dtypes, df.columns):
         if i == 'object':
-            df[j] = df[j].fillna(df[j].mode())
+            pass
         else:
-            df[j] = df[j].fillna(df[j].median())
+            df[j] = df[j].fillna(df[j].mean())
     return df
 
 def to_catgorical_encodings(df):
@@ -53,6 +54,9 @@ def to_catgorical_encodings(df):
 
 
 df_app_train = fill_na_encodings(df_app_train)
+
+
+df_app_train = df_app_train.compute()
 
 df_app_train['a1'] = df_app_train.apply(lambda x: x['AMT_INCOME_TOTAL']/max(1, x['AMT_ANNUITY']), axis = 1)
 df_app_train['a2'] = df_app_train.apply(lambda x: x['AMT_GOODS_PRICE']/max(1, x['AMT_INCOME_TOTAL']), axis = 1)
