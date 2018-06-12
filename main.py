@@ -63,7 +63,8 @@ def to_categorical_encodings(df, one_hot = False):
                 dummy_dfs.append(temp_df)
                 df = df.drop(j, axis=1)
             else:
-                df[j] = df[[j]].fillna(0)
+                pass
+                # df[j] = df[[j]].fillna(0)
     else:
         for i, j in zip(types, df.columns):
             if j == 'SK_ID_CURR' or j == 'TARGET' or j == 'SK_ID_PREV':
@@ -75,7 +76,8 @@ def to_categorical_encodings(df, one_hot = False):
                 le = LabelEncoder()
                 df[j] = le.fit_transform(df[j])
             else:
-                df[j] = df[[j]].fillna(0)
+                pass
+                # df[j] = df[[j]].fillna(0)
     return df
 
 
@@ -160,22 +162,36 @@ def get_bureau_features(df):
 
 
     df_copy['bureau_count_columns'] = 1
-    df_copy = df_copy[['SK_ID_CURR', 'bureau_count_columns']].groupby('SK_ID_CURR', as_index = False).count()
-    df = df.merge(df_copy)
+    df_copy = df_copy.groupby(['SK_ID_CURR'], as_index=False).count()
+    df = df.merge(df_copy, on = ['SK_ID_CURR'], suffixes=('', '_count'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).max()
+    df = df.merge(df_copy, on = ['SK_ID_CURR'], suffixes=('', '_max'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).min()
+    df = df.merge(df_copy, on = ['SK_ID_CURR'], suffixes=('', '_min'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).std()
+    df = df.merge(df_copy, on = ['SK_ID_CURR'], suffixes=('', '_std'))
+
     return df
 
 
 def get_cc_features(df):
     df_copy = df.copy()
+
     df_copy['cc_count_columns'] = 1
-    df_copy = df_copy[['SK_ID_CURR', 'cc_count_columns']].groupby('SK_ID_CURR', as_index = False).count()
-    df = df.merge(df_copy)
+    df_copy = df_copy.groupby(['SK_ID_CURR', 'cc_count_columns'], as_index=False).count()
+    df = df.merge(df_copy, suffixes=('', '_count'))
 
     df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).max()
     df = df.merge(df_copy, suffixes=('', '_max'))
 
     df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).min()
     df = df.merge(df_copy, suffixes=('', '_min'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).std()
+    df = df.merge(df_copy, suffixes=('', '_std'))
 
     return df
 
@@ -185,7 +201,7 @@ def get_pos_features(df):
     df['pos_cnt_vs_future_instalment'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
 
     df_copy['pos_count_columns'] = 1
-    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).count()
+    df_copy = df_copy.groupby(['SK_ID_CURR', 'pos_count_columns'], as_index = False).count()
     df = df.merge(df_copy, suffixes = ('', '_count'))
 
     df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).max()
@@ -194,20 +210,25 @@ def get_pos_features(df):
     df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).min()
     df = df.merge(df_copy, suffixes = ('', '_min'))
 
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).std()
+    df = df.merge(df_copy, suffixes = ('', '_std'))
 
     return df
 
 def get_prev_features(df):
     df_copy = df.copy()
     df_copy['prev_count_columns'] = 1
-    df_copy = df_copy[['SK_ID_CURR', 'prev_count_columns']].groupby('SK_ID_CURR', as_index = False).count()
+    df_copy = df_copy.groupby(['SK_ID_CURR', 'prev_count_columns'], as_index = False).count()
     df = df.merge(df_copy, suffixes = ('', '_count'))
 
-    df_copy = df_copy[['SK_ID_CURR', 'prev_count_columns']].groupby('SK_ID_CURR', as_index = False).max()
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).max()
     df = df.merge(df_copy, suffixes = ('', '_max'))
 
-    df_copy = df_copy[['SK_ID_CURR', 'prev_count_columns']].groupby('SK_ID_CURR', as_index = False).min()
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).min()
     df = df.merge(df_copy, suffixes = ('', '_min'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).std()
+    df = df.merge(df_copy, suffixes = ('', '_std'))
 
     df['prev_AMT_CREDIT/AMT_ANNUITY'] =  df['AMT_CREDIT']/df['AMT_ANNUITY']
     df['prev_AMT_CREDIT/AMT_GOODS_PRICE'] = df['AMT_CREDIT'] / df['AMT_GOODS_PRICE']
@@ -224,6 +245,19 @@ def get_installment_features(df):
     df_copy = df.copy()
     df_copy['inst_count_columns'] = 1
     df_copy = df_copy[['SK_ID_CURR', 'inst_count_columns']].groupby('SK_ID_CURR', as_index = False).count()
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).count()
+    df = df.merge(df_copy, suffixes = ('', '_count'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).max()
+    df = df.merge(df_copy, suffixes = ('', '_max'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).min()
+    df = df.merge(df_copy, suffixes = ('', '_min'))
+
+    df_copy = df_copy.groupby('SK_ID_CURR', as_index = False).std()
+    df = df.merge(df_copy, suffixes = ('', '_std'))
+
     df = df.merge(df_copy)
 
     df['prev_days_to_first_payment'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
@@ -258,7 +292,6 @@ def main():
     cc_df = to_categorical_encodings(cc_df, one_hot=True)
     cc_df = get_cc_features(cc_df)
     cc_df = fill_na_encodings(cc_df)
-    cc_df = to_categorical_encodings(cc_df)
 
     # cc_df = get_general_features(cc_df, 'SK_ID_CURR', 'cc', [])
     cc_df = cc_df.groupby('SK_ID_CURR', as_index =False).mean()
@@ -280,8 +313,6 @@ def main():
     prev_df = fill_na_encodings(prev_df)
     prev_df= to_categorical_encodings(prev_df, one_hot=True)
     prev_df = get_prev_features(prev_df)
-    prev_df = fill_na_encodings(prev_df)
-    prev_df = to_categorical_encodings(prev_df)
 
     # prev_df = get_general_features(prev_df, 'SK_ID_CURR', 'pos', [])
     prev_df = prev_df.groupby('SK_ID_CURR', as_index =False).mean()
@@ -292,8 +323,6 @@ def main():
     installments_df = fill_na_encodings(installments_df)
     installments_df = to_categorical_encodings(installments_df, one_hot=True)
     installments_df = get_installment_features(installments_df)
-    installments_df = fill_na_encodings(installments_df)
-    installments_df = to_categorical_encodings(installments_df)
 
     # installments_df = get_general_features(installments_df, 'SK_ID_CURR', 'bureau', [])
     installments_df = installments_df.groupby('SK_ID_CURR', as_index =False).mean()
@@ -303,15 +332,12 @@ def main():
     bureau_df = fill_na_encodings(bureau_df)
     bureau_df = get_bureau_features(bureau_df)
     bureau_df= to_categorical_encodings(bureau_df, one_hot=True)
-    bureau_df = fill_na_encodings(bureau_df)
     bureau_df = bureau_df.groupby('SK_ID_CURR', as_index=False).mean()
     print('bureau done')
 
     bureau_balance_df = pd.read_csv(path + '/bureau_balance.csv')
     bureau_balance_df = fill_na_encodings(bureau_balance_df)
-    bureau_balance_df = get_bureau_features(bureau_balance_df)
     bureau_balance_df= to_categorical_encodings(bureau_balance_df, one_hot=True)
-    bureau_balance_df = fill_na_encodings(bureau_balance_df)
     bureau_balance_df = bureau_balance_df.groupby('SK_ID_BUREAU', as_index=False).mean()
     print('bureau done')
 
@@ -327,7 +353,6 @@ def main():
     concat_df = concat_df.merge(installments_df, how='left', on = 'SK_ID_CURR', suffixes = ('prev_', 'inst_'))
     concat_df = concat_df.merge(bureau_df, how='left', on = 'SK_ID_CURR', suffixes = ('inst_', 'bureau_'))
     concat_df = fill_na_encodings(concat_df)
-    concat_df = to_categorical_encodings(concat_df, one_hot=True)
 
     concat_df = concat_df.groupby('SK_ID_CURR', as_index =False).mean()
     concat_df = drop_bad_columns(concat_df)
