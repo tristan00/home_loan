@@ -38,7 +38,7 @@ def fill_na_encodings(df):
             df[j] = df[j].fillna(df[j].mean())
     return df
 
-def to_catgorical_encodings(df):
+def to_categorical_encodings(df):
     types = df.dtypes
     for i, j in zip(types, df.columns):
         if j == 'SK_ID_CURR' or j == 'TARGET' or j == 'SK_ID_PREV':

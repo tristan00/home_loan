@@ -110,13 +110,20 @@ def get_final_features():
 
 
 def get_application_features(df):
-    df['app_AMT_CREDIT/AMT_ANNUITY'] = df.apply(lambda x: x['AMT_CREDIT']/max(x['AMT_ANNUITY'], 1), axis = 1)
-    df['app_AMT_CREDIT/AMT_GOODS_PRICE'] = df.apply(lambda x: x['AMT_CREDIT'] / max(x['AMT_GOODS_PRICE'], 1), axis = 1)
-    df['app_AMT_ANNUITY/AMT_GOODS_PRICE'] = df.apply(lambda x: x['AMT_ANNUITY'] / max(x['AMT_GOODS_PRICE'], 1), axis = 1)
-
-    df['app_AMT_GOODS_PRICE/AMT_INCOME_TOTAL'] = df.apply(lambda x: x['AMT_ANNUITY'] / max(x['AMT_GOODS_PRICE'], 1), axis = 1)
-    df['app_AMT_ANNUITY/AMT_INCOME_TOTAL'] = df.apply(lambda x: x['AMT_ANNUITY'] / max(x['AMT_GOODS_PRICE'], 1), axis = 1)
-    df['app_AMT_CREDIT/AMT_INCOME_TOTAL'] = df.apply(lambda x: x['AMT_ANNUITY'] / max(x['AMT_GOODS_PRICE'], 1), axis = 1)
+    df['a1'] = df['AMT_INCOME_TOTAL'] / df['AMT_ANNUITY']
+    df['a2'] = df.apply(lambda x: x['AMT_GOODS_PRICE'] / max(1, x['AMT_INCOME_TOTAL']), axis=1)
+    df['a3'] = df.apply(lambda x: x['AMT_CREDIT'] / max(1, x['AMT_INCOME_TOTAL']), axis=1)
+    df['a4'] = df.apply(lambda x: x['AMT_GOODS_PRICE'] / max(1, x['AMT_CREDIT']), axis=1)
+    df['a5'] = df.apply(lambda x: x['AMT_CREDIT'] / max(1, x['AMT_ANNUITY']), axis=1)
+    df['a6'] = df.apply(lambda x: x['CNT_CHILDREN'] / max(1, x['CNT_FAM_MEMBERS']), axis=1)
+    df['a7'] = df['DAYS_BIRTH'] - df['DAYS_EMPLOYED']
+    df['a8'] = df['DAYS_BIRTH'] - df['DAYS_REGISTRATION']
+    df['a9'] = df['DAYS_BIRTH'] - df['DAYS_ID_PUBLISH']
+    df['a10'] = df['DAYS_BIRTH'] - df['DAYS_LAST_PHONE_CHANGE']
+    df['a11'] = df.apply(
+        lambda x: x['DEF_60_CNT_SOCIAL_CIRCLE'] / max(1, x['OBS_60_CNT_SOCIAL_CIRCLE']), axis=1)
+    df['a12'] = df.apply(
+        lambda x: x['DEF_30_CNT_SOCIAL_CIRCLE'] / max(1, x['OBS_30_CNT_SOCIAL_CIRCLE']), axis=1)
 
     return df
 
