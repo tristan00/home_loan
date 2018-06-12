@@ -23,6 +23,7 @@ MAX_ROUNDS = 10000
 
 df_app_train = dd.read_csv(path + '/application_train.csv')
 df_app_test = dd.read_csv(path + '/application_test.csv')
+
 df_concat = dd.concat([df_app_test, df_app_train])
 
 def fill_na_encodings(df):
