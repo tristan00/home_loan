@@ -15,8 +15,7 @@ params = {
     'bagging_fraction': 0.8,
     'bagging_freq': 2,
     'metric': 'auc',
-    'num_threads': 12,
-    'scale_pos_weight':12
+    'num_threads': 12
 }
 MAX_ROUNDS = 5000
 
@@ -39,7 +38,7 @@ def fill_na_encodings(df):
     return df
 
 
-def to_categorical_encodings(df, one_hot = False):
+def to_categorical_encodings(df, one_hot = True):
     types = df.dtypes
 
     categorical_features_indices = np.where(df.dtypes == 'object')
@@ -63,12 +62,13 @@ def to_categorical_encodings(df, one_hot = False):
                 dummy_dfs.append(temp_df)
                 df = df.drop(j, axis=1)
             else:
-                pass
-                # dummy_dfs.append(df[[j]].fillna(0))
-                try:
-                    df[j] = df[[j]].fillna(0)
-                except:
-                    pass
+                df[j] = df[[j]].fillna(0)
+                # pass
+                # # dummy_dfs.append(df[[j]].fillna(0))
+                # try:
+                #     df[j] = df[[j]].fillna(0)
+                # except:
+                #     pass
 
     else:
         for i, j in zip(types, df.columns):
@@ -190,6 +190,20 @@ def get_bureau_features(df, name = '_bureau'):
 def get_cc_features(df):
     df_copy = df.copy()
 
+    df['AMT_CREDIT_LIMIT_ACTUAL/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_CREDIT_LIMIT_ACTUAL'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_BALANCE/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_BALANCE'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_BALANCE/AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_BALANCE'] / df['AMT_CREDIT_LIMIT_ACTUAL']
+    df['AMT_BALANCE/AMT_DRAWINGS_CURRENT'] = df['AMT_BALANCE'] / df['AMT_DRAWINGS_CURRENT']
+    df['AMT_BALANCE/AMT_DRAWINGS_POS_CURRENT'] = df['AMT_BALANCE'] / df['AMT_DRAWINGS_POS_CURRENT']
+    df['AMT_BALANCE/AMT_RECEIVABLE_PRINCIPAL'] = df['AMT_BALANCE'] / df['AMT_RECEIVABLE_PRINCIPAL']
+    df['AMT_DRAWINGS_CURRENT/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_DRAWINGS_CURRENT'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_DRAWINGS_POS_CURRENT/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_DRAWINGS_POS_CURRENT'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_INST_MIN_REGULARITY/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_INST_MIN_REGULARITY'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_PAYMENT_CURRENT/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_PAYMENT_CURRENT'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_PAYMENT_TOTAL_CURRENT/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_PAYMENT_TOTAL_CURRENT'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_RECEIVABLE_PRINCIPAL/AMT_DRAWINGS_ATM_CURRENT'] = df['AMT_RECEIVABLE_PRINCIPAL'] / df['AMT_DRAWINGS_ATM_CURRENT']
+    df['AMT_RECEIVABLE_PRINCIPAL/AMT_TOTAL_RECEIVABLE'] = df['AMT_RECEIVABLE_PRINCIPAL'] / df['AMT_TOTAL_RECEIVABLE']
+
     df_copy['cc_count_columns'] = 1
     df_copy = df_copy.groupby(['SK_ID_CURR'], as_index=False).count()
     df_copy = df_copy[['SK_ID_CURR', 'cc_count_columns']]
@@ -213,6 +227,7 @@ def get_pos_features(df):
     df_copy = df.copy()
 
     df['pos_cnt_vs_future_instalment'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
+    df['SK_DPD-SK_DPD_DEF'] = df['SK_DPD'] - df['SK_DPD_DEF']
 
     df_copy['pos_count_columns'] = 1
     df_copy = df_copy.groupby(['SK_ID_CURR'], as_index=False).count()
@@ -270,6 +285,10 @@ def get_prev_features(df):
 def get_installment_features(df):
     df_copy = df.copy()
     df_copy['inst_count_columns'] = 1
+
+    df['prev_days_to_first_payment'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
+    df['prev_payment_vs_installment'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
+
     df_copy = df_copy.groupby(['SK_ID_CURR'], as_index=False).count()
     df_copy = df_copy[['SK_ID_CURR', 'inst_count_columns']]
     df = df.merge(df_copy, suffixes=('', '_count'), on = 'SK_ID_CURR')
@@ -286,9 +305,6 @@ def get_installment_features(df):
     df_copy = df_copy.groupby('SK_ID_CURR', as_index=False).mean()
     df = df.merge(df_copy, suffixes=('', '_mean'), on = 'SK_ID_CURR')
 
-
-    df['prev_days_to_first_payment'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
-    df['prev_payment_vs_installment'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
     return df
 
 
@@ -368,7 +384,6 @@ def main():
     bureau_df = fill_na_encodings(bureau_df)
     bureau_df = get_bureau_features(bureau_df)
     bureau_df= to_categorical_encodings(bureau_df, one_hot=True)
-    bureau_df = bureau_df.groupby('SK_ID_CURR', as_index=False).mean()
     print('bureau done')
     gc.collect()
 
@@ -385,6 +400,7 @@ def main():
     # bureau_df = bureau_df.merge(bureau_balance_df, how = 'outer
 
     bureau_df = bureau_df.merge(bureau_balance_df, how = 'left', on = 'SK_ID_BUREAU', suffixes = ('', 'bureau_balance_df_'))
+    bureau_df = bureau_df.groupby('SK_ID_CURR', as_index=False).mean()
 
     concat_df = concat_df.merge(cc_df, how = 'left', on = 'SK_ID_CURR', suffixes = ('concat_', 'cc_'))
     concat_df = concat_df.merge(pos_df, how='left', on = 'SK_ID_CURR', suffixes = ('cc_', 'pos_'))
@@ -403,8 +419,7 @@ def main():
     train_df = train_df.fillna(-1)
     test_df = test_df.fillna(-1)
     print(train_df.shape)
-    sample = train_df[0:1000]
-    sample.to_csv('sample.csv', index = False)
+    train_df.to_csv('train_df.csv', index = False)
     train_df.describe().to_csv('desc.csv')
 
     res_df = test_df[['SK_ID_CURR', 'TARGET']]
@@ -419,10 +434,10 @@ def main():
     # model = lgb.train(params, dtrain, num_boost_round=MAX_ROUNDS, valid_sets=[dtrain, dval],early_stopping_rounds=50,
     #                   verbose_eval=1, categorical_feature='auto')
 
-    model = catboost.CatBoostClassifier(eval_metric='AUC', n_estimators=4000)
+    model = catboost.CatBoostClassifier(eval_metric='AUC', learning_rate=.01, n_estimators=10000, scale_pos_weight = 12)
     model.fit(train_x, train_y, eval_set=(val_x, val_y))
 
-    res_df['TARGET'] = model.predict(test_df)
+    res_df['TARGET'] = model.predict_proba(test_df)
     res_df.to_csv('output.csv', index = False)
 
     columns = train_df.columns
@@ -436,5 +451,9 @@ def main():
 
 if __name__ == '__main__':
     main()
-    df = pd.read_csv('sample.csv')
-    a = 3
+    # df = pd.read_csv('sample.csv')
+    # a = 3
+    # df = pd.read_csv('output.csv')
+    # df['SK_ID_CURR'] = df[['SK_ID_CURR']].astype(int)
+    # print(df.describe())
+    # df.to_csv('output.csv', index = False)

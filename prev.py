@@ -318,6 +318,16 @@ def drop_bad_columns(df):
     return df
 
 
+def prev_test():
+    cc_df = pd.read_csv(path + '/credit_card_balance.csv')
+    pos_df = pd.read_csv(path + '/POS_CASH_balance.csv')
+    prev_df = pd.read_csv(path + '/previous_application.csv')
+    installments_df = pd.read_csv(path + '/installments_payments.csv')
+
+    m1 = installments_df.merge(cc_df, on = ['SK_ID_CURR', 'SK_ID_PREV'])
+    print(m1.shape)
+
+
 def main():
     train_df = pd.read_csv(path + '/application_train.csv')
     test_df = pd.read_csv(path + '/application_test.csv')
@@ -450,7 +460,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    prev_test()
     # df = pd.read_csv('sample.csv')
     # a = 3
     # df = pd.read_csv('output.csv')
